@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    public function shops()
+    {
+        return $this->belongsToMany('App\Models\Shop');
+    }
+
+    public function scopeRelatedProducts($query)
+    {
+        return $query->inRandomOrder()->take(4);
+    }
 }
