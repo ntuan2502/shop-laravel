@@ -111,7 +111,16 @@
                                     <div class="pro-qty">
                                         <input type="text" value="1">
                                     </div>
-                                    <a href="#" class="primary-btn pd-cart">Add To Cart</a>
+                                    {{-- <a href="#" class="primary-btn pd-cart">Add To
+                                        Cart</a> --}}
+                                    <form action="{{ route('cart.store') }}" id="addToCart" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                        <input type="hidden" name="name" value="{{ $product->name }}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="primary-btn pd-cart">Add To Cart</button>
+                                    </form>
                                 </div>
                                 <ul class="pd-tags">
                                     <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
@@ -347,5 +356,32 @@
 @endsection
 
 @section('js')
+    <script>
+        /*-------------------Quantity change--------------------- */
+        var proQty = $('.pro-qty');
+        proQty.prepend('<span class="dec qtybtn">-</span>');
+        proQty.append('<span class="inc qtybtn">+</span>');
+        proQty.on('click', '.qtybtn', function() {
+            var $button = $(this);
+            var oldValue = $button.parent().find('input').val();
+            if ($button.hasClass('inc')) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                // Don't allow decrementing below zero
+                if (oldValue > 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+            $button.parent().find('input').val(newVal);
 
+            $('#addToCart').find('[name="qty"]').val(newVal);
+        });
+        proQty.on('change', function() {
+            var newVal = $(this).find('input').val();
+            $('#addToCart').find('[name="qty"]').val(newVal);
+        });
+
+    </script>
 @endsection

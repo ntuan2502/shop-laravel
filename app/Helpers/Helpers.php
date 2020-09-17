@@ -7,3 +7,7 @@ function pricetoVND($price){
         return $price . " VND";
     }
 }
+
+function remove_thousand_seperator($price){
+    return str_replace(',', '', $price);
+}

@@ -27,9 +27,9 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    {{-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> --}}
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -94,54 +94,63 @@
                             <li class="cart-icon">
                                 <a href="#">
                                     <i class="icon_bag_alt"></i>
-                                    <span>3</span>
+                                    @if ($cart_count > 0)
+                                        <span>{{ $cart_count }}</span>
+                                    @endif
                                 </a>
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
                                             <tbody>
-                                                <tr>
-                                                    <td class="si-pic"><img
-                                                            src="{{ asset('assets/img/select-product-1.jpg') }}" alt="">
-                                                    </td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img
-                                                            src="{{ asset('assets/img/select-product-2.jpg') }}" alt="">
-                                                    </td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
+                                                @foreach ($cart_content as $item)
+                                                    <tr>
+                                                        <td class="si-pic">
+                                                            <a href="{{ route('shop.show', $item->model->slug) }}">
+                                                                <img src="{{ secure_asset('storage/' . $item->model->image) }}"
+                                                                    class="img-popup-cart" alt="null">
+                                                            </a>
+                                                        </td>
+                                                        <td class="si-text">
+                                                            <div class="product-selected">
+                                                                <p>
+                                                                    {{ $item->vnd_price }} x
+                                                                    {{ $item->qty }}
+                                                                </p>
+                                                                <h6>
+                                                                    <a
+                                                                        href="{{ route('shop.show', $item->model->slug) }}">
+                                                                        {{ $item->model->name }}
+                                                                    </a>
+                                                                </h6>
+                                                            </div>
+                                                        </td>
+                                                        <form action="{{ route('cart.destroy', $item->rowId) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            {{ method_field('DELETE') }}
+                                                            <td class="si-close">
+                                                                <button type="submit">
+                                                                    <i class="ti-close"></i>
+                                                                </button>
+                                                            </td>
+                                                        </form>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>$120.00</h5>
+                                        <h5>{{ $cart_newTotal }}</h5>
                                     </div>
                                     <div class="select-button">
-                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        <a href="{{ route('cart.index') }}" class="primary-btn view-card">VIEW CARD</a>
+                                        <a href="{{ route('checkout.index') }}" class="primary-btn checkout-btn">CHECK
+                                            OUT</a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">$150.00</li>
+                            <li class="cart-price">{{ $cart_newTotal }}</li>
                         </ul>
                     </div>
                 </div>
@@ -154,7 +163,8 @@
                         <i class="ti-menu"></i>
                         <span>All departments</span>
                         <ul class="depart-hover">
-                            {{-- <li class="active"><a href="#">Women’s Clothing</a></li> --}}
+                            {{-- <li class="active"><a href="#">Women’s Clothing</a></li>
+                            --}}
                             @foreach ($shops as $shop)
                                 <li class="">
                                     <a href="{{ route('shop.index', ['shop' => $shop->slug]) }}">
@@ -167,8 +177,11 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="{{$currentRouteName === 'index' ? 'active' : ''}}"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="{{$currentRouteName === 'shop.index' || $currentRouteName === 'shop.show' ? 'active' : ''}}"><a href="{{ route('shop.index') }}">Shop</a></li>
+                        <li class="{{ $currentRouteName === 'index' ? 'active' : '' }}"><a
+                                href="{{ route('index') }}">Home</a></li>
+                        <li
+                            class="{{ $currentRouteName === 'shop.index' || $currentRouteName === 'shop.show' ? 'active' : '' }}">
+                            <a href="{{ route('shop.index') }}">Shop</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
@@ -181,8 +194,8 @@
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./blog-details.html">Blog Details</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="./check-out.html">Checkout</a></li>
+                                <li><a href="{{ route('cart.index') }}">Shopping Cart</a></li>
+                                <li><a href="{{ route('checkout.index') }}">Checkout</a></li>
                                 <li><a href="./faq.html">Faq</a></li>
                                 <li><a href="./register.html">Register</a></li>
                                 <li><a href="./login.html">Login</a></li>
@@ -239,7 +252,8 @@
                 <div class="col-lg-3">
                     <div class="footer-left">
                         <div class="footer-logo">
-                            <a href="{{ route('index') }}"><img src="{{ asset('assets/img/footer-logo.png') }}" alt=""></a>
+                            <a href="{{ route('index') }}"><img src="{{ asset('assets/img/footer-logo.png') }}"
+                                    alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
