@@ -167,8 +167,8 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="{{$currentRouteName == 'index' ? 'active' : ''}}"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="{{$currentRouteName == 'shop.index' ? 'active' : ''}}"><a href="{{ route('shop.index') }}">Shop</a></li>
+                        <li class="{{$currentRouteName === 'index' ? 'active' : ''}}"><a href="{{ route('index') }}">Home</a></li>
+                        <li class="{{$currentRouteName === 'shop.index' || $currentRouteName === 'shop.show' ? 'active' : ''}}"><a href="{{ route('shop.index') }}">Shop</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>

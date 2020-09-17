@@ -19,15 +19,13 @@ class ShopController extends Controller
         if (request()->shop) {
             $products = Product::with('shops')->whereHas('shops', function ($query) {
                 $query->where('slug', request()->shop);
-            })->get();
-            $countProducts = $products->count();
+            });
             $currentShop = Shop::where('slug', request()->shop)->first();
         } else {
-            $products = Product::where([])->inRandomOrder()->get();
-            $countProducts = $products->count();
-            $currentShop = 'Shop';
+            $products = Product::where([])->inRandomOrder();
+            $currentShop = null;
         }
-        //$products = $products->paginate($pagination);
+        $products = $products->paginate($pagination);
 
         foreach ($products as $product) {
             $product->vnd_price = pricetoVND($product->price);
@@ -36,7 +34,6 @@ class ShopController extends Controller
         return view('shop')->with([
             'products' => $products,
             'currentShop' => $currentShop,
-            'countProducts' => $countProducts,
         ]);
     }
 

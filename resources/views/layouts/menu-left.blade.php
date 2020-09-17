@@ -3,7 +3,7 @@
         <h4 class="fw-title">Shop</h4>
         <ul class="filter-catagories">
             @foreach ($shops as $shop)
-                <li class="{{$currentShop->slug === $shop->slug ? 'active' : ''}}">
+                <li class="{{$currentShop ? ($currentShop->slug === $shop->slug ? 'active' : '') : ''}}">
                     <a href="{{ route('shop.index', ['shop' => $shop->slug]) }}">
                         {{ $shop->name }}
                     </a>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Shop;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +27,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
         View::composer('*', function ($view) {
             // $cart_taxPercent = config('cart.tax');
             // $coupon = session()->get('coupon');

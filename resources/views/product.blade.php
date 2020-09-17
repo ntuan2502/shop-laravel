@@ -48,8 +48,8 @@
                                         <img src="{{ asset('assets/img/product-single/product-2.jpg') }}" alt=""></div>
                                     <div class="pt" data-imgbigurl="{{ asset('assets/img/product-single/product-3.jpg') }}">
                                         <img src="{{ asset('assets/img/product-single/product-3.jpg') }}" alt=""></div>
-                                    <div class="pt" data-imgbigurl="{{ asset('assets/img/product-single/product-3.jpg') }}">
-                                        <img src="{{ asset('assets/img/product-single/product-3.jpg') }}" alt=""></div>
+                                    <div class="pt" data-imgbigurl="{{ asset('assets/img/product-single/product-1.jpg') }}">
+                                        <img src="{{ asset('assets/img/product-single/product-1.jpg') }}" alt=""></div>
                                 </div>
                             </div>
                         </div>

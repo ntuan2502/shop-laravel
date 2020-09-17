@@ -12,7 +12,12 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
                         <a href="{{ route('index') }}"><i class="fa fa-home"></i> Home</a>
-                        <span>{{$currentShop->name ?? 'Shop'}}</span>
+                        @if ($currentShop)
+                            <a href="{{ route('shop.index') }}">Shop</a>
+                            <span>{{ $currentShop->name ?? '' }}</span>
+                        @else
+                            <span>Shop</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -41,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 text-right">
-                                <p>Show 01- 09 Of {{$countProducts}} Product</p>
+                                <p>Show {{$products->firstItem()}} - {{$products->lastItem()}} Of {{ $products->total() }} Product</p>
                             </div>
                         </div>
                     </div>
@@ -51,7 +56,7 @@
                                 <div class="col-lg-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="pi-pic">
-                                            <img src="{{asset('assets/img/products/product-1.jpg')}}" alt="">
+                                            <img src="{{ asset('assets/img/products/product-1.jpg') }}" alt="">
                                             <div class="sale pp-sale">Sale</div>
                                             <div class="icon">
                                                 <i class="icon_heart_alt"></i>
@@ -75,15 +80,15 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
                     </div>
-                    <div class="loading-more">
+                    {{ $products->withQueryString()->links() }}
+                    {{-- <div class="loading-more">
                         <i class="icon_loading"></i>
                         <a href="#">
                             Loading More
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
