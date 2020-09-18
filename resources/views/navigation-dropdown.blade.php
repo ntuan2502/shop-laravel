@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="/dashboard">
+                    <a href="{{ route('index') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -22,8 +22,10 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-jet-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        <button
+                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                            <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
+                                alt="{{ Auth::user()->name }}" />
                         </button>
                     </x-slot>
 
@@ -80,8 +82,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-jet-dropdown-link href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
+                            <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
                                                             this.closest('form').submit();">
                                 {{ __('Logout') }}
                             </x-jet-dropdown-link>
@@ -92,10 +93,14 @@
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -114,7 +119,8 @@
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                    <img class="h-10 w-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}"
+                        alt="{{ Auth::user()->name }}" />
                 </div>
 
                 <div class="ml-3">
@@ -139,8 +145,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                    <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                         {{ __('Logout') }}
                     </x-jet-responsive-nav-link>
@@ -155,7 +160,8 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="/teams/{{ Auth::user()->currentTeam->id }}" :active="request()->routeIs('teams.show')">
+                    <x-jet-responsive-nav-link href="/teams/{{ Auth::user()->currentTeam->id }}"
+                        :active="request()->routeIs('teams.show')">
                         {{ __('Team Settings') }}
                     </x-jet-responsive-nav-link>
 

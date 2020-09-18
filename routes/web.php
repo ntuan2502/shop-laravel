@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
@@ -42,6 +43,6 @@ Route::get('/cart/empty', function () {
 //     return view('welcome');
 // });
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

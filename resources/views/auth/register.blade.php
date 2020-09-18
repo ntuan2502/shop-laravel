@@ -1,43 +1,59 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.main')
+@section('css')
 
-        <x-jet-validation-errors class="mb-4" />
+@endsection
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+@section('body')
 
-            <div>
-                <x-jet-label value="{{ __('Name') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="{{ route('index') }}"><i class="fa fa-home"></i> Home</a>
+                        <span>Register</span>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
 
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Email') }}" />
-                <x-jet-input class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <h2>Register</h2>
+                        <form action="#">
+                            <div class="group-input">
+                                <label for="username">Username or email address *</label>
+                                <input type="text" id="username">
+                            </div>
+                            <div class="group-input">
+                                <label for="pass">Password *</label>
+                                <input type="text" id="pass">
+                            </div>
+                            <div class="group-input">
+                                <label for="con-pass">Confirm Password *</label>
+                                <input type="text" id="con-pass">
+                            </div>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="{{ route('login') }}" class="or-login">Or Login</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
 
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+@endsection
 
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Confirm Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+@section('js')
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+@endsection

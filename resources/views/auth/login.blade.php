@@ -1,48 +1,79 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.main')
+@section('css')
 
-        <x-jet-validation-errors class="mb-4" />
+@endsection
 
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
+@section('body')
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="{{ route('index') }}"><i class="fa fa-home"></i> Home</a>
+                        <span>Login</span>
+                    </div>
+                </div>
             </div>
-        @endif
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-jet-label value="{{ __('Email') }}" />
-                <x-jet-input class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <h2>Login</h2>
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+                            <div class="group-input">
+                                <label for="email">Username or email address *</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="group-input">
+                                <label for="pass">Password *</label>
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password" required
+                                    autocomplete="current-password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="group-input gi-check">
+                                <div class="gi-more">
+                                    <label for="save-pass">
+                                        Save Password
+                                        <input type="checkbox" id="save-pass">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <a href="{{ route('password.request') }}" class="forget-pass">Forget your Password</a>
+                                </div>
+                            </div>
+                            <button type="submit" class="site-btn login-btn">Sign In</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="{{ route('register') }}" class="or-login">Or Create An Account</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
 
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
+@endsection
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <input type="checkbox" class="form-checkbox" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+@section('js')
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-jet-button class="ml-4">
-                    {{ __('Login') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+@endsection
